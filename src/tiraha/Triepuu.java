@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tiraha;
 
 /**
- *
- * @author Henriikka
+ * Luokka luo triepuun.
  */
 public class Triepuu {
-    
 }

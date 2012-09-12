@@ -1,25 +1,24 @@
 package tiraha;
 
-
 import java.util.Scanner;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ *  
  */
-
 /**
+ * Luokka mahdollistaa Stringien ja lukujen kysymisen ja ilmoitusten lausumisen.
  *
  * @author Henriikka
  */
 public class Tekstikayttoliittyma implements Kayttoliittyma {
-    
+
     private static Scanner lukija = new Scanner(System.in);
 
     /**
-     * Metodi kysyy käyttäjältä standardisyöttövirrasta Stringiä ja palauttaa sen
+     * Metodi kysyy käyttäjältä standardisyöttövirrasta Stringiä ja palauttaa
+     * sen
      *
-     * @param   ilmoitus Käyttäjälle tulostettava ilmoitus ennen inputtia
+     * @param ilmoitus Käyttäjälle tulostettava ilmoitus ennen inputtia
      * @return Käyttäjän syöttämä sisääntulo
      */
     @Override
@@ -29,9 +28,10 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
     }
 
     /**
-     * Metodi kysyy käyttäjältä syötettä ja tarkistaa onko se sopiva int 
-     * tyyppiseksi, jos kyllä niin se palautetaan, jos ei niin kysytään 
+     * Metodi kysyy käyttäjältä syötettä ja tarkistaa onko se sopiva int
+     * tyyppiseksi, jos kyllä niin se palautetaan, jos ei niin kysytään
      * uudestaan virheilmoituksen kera.
+     *
      * @param ilmoitus käyttäjälle tulostettava ilmoitus ennen inputtia
      * @return Käyttäjän syöttämä kokonaisluku
      */
@@ -47,13 +47,14 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
             }
         }
     }
+
     /**
      * Tulostaa käyttäjälle metodille syötetyn tekstin
+     *
      * @param string Merkkijono joka tulostetaan käyttäjälle
      */
     @Override
     public void ilmoita(String ilmoitus) {
         System.out.println(ilmoitus);
     }
-    
 }
