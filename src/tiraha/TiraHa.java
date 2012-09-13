@@ -10,10 +10,18 @@ package tiraha;
  */
 public class TiraHa {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Tekstikayttoliittyma teka = new Tekstikayttoliittyma();
+
+        Binaarihakupuu bpuu = new Binaarihakupuu();
+            bpuu.insert(bpuu, 5);
+            bpuu.insert(bpuu, 10);
+            bpuu.insert(bpuu, 2);
+            bpuu.insert(bpuu, 4);
+        
+        Lapikulut kulut = new Lapikulut();
+        kulut.preorder(bpuu, bpuu.getJuuri());
+        kulut.inorder(bpuu, bpuu.getJuuri());
+        
     }
 }

@@ -1,14 +1,14 @@
 package tiraha;
 
 /**
- * Luokka luo binäärihakupuun.
+ * Luokka luo binäärihakupuun. Luokka saattaa olla turha :----)))
  */
-public class Binaarihakupuu {
+public class Binaarihakupuu extends Puu {
 
     /**
      * Solmu-tyyppinen muuttuja, jota käytetään puun juurena.
      */
-    private Solmu juuri;
+    public Solmu juuri;
     /**
      * Solmu-tyyppiset apumuuttujat.
      */
@@ -35,6 +35,7 @@ public class Binaarihakupuu {
 
         if (puu.juuri == null) {
             puu.juuri = uusisolmu;
+            juuri.setKorkeus(0, uusisolmu);
         } else {
             apuSolmu1 = puu.juuri;
             while (apuSolmu1 != null) {
@@ -47,8 +48,10 @@ public class Binaarihakupuu {
                 uusisolmu.setParent(apuSolmu2);
                 if (uusisolmu.getAvain() < apuSolmu2.getAvain()) {
                     apuSolmu2.setVasen(uusisolmu);
+                    uusisolmu.setKorkeus(uusisolmu.getParent().getKorkeus()+1, uusisolmu);
                 } else {
                     apuSolmu2.setOikea(uusisolmu);
+                    uusisolmu.setKorkeus(uusisolmu.getParent().getKorkeus()+1, uusisolmu);
                 }
             }
         }

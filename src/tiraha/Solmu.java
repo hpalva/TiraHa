@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tiraha;
 
 /**
@@ -29,6 +25,10 @@ public class Solmu {
      * Solmu-tyyppinen muuttuja, jota käytetään solmun vanhempana solmuna
      */
     private Solmu parent;
+    /**
+     * Solmu-tyyppinen muuttuja, jota käytetään puun juurena.
+     */
+    private Solmu juuri;
 
     /**
      * Konstruktori määrittelee solmun.
@@ -73,54 +73,100 @@ public class Solmu {
         //vasen.setKorkeus(vasen.getParent().getKorkeus() + 1);
     }
 
+    /**
+     * Setteri oikealle lapselle
+     *
+     * @param oikea Oikeaksi lapseksi asetettava solmu
+     */
     public void setOikea(Solmu oikea) {
         this.oikea = oikea;
         //oikea.setKorkeus(oikea.getParent().getKorkeus() + 1);
     }
 
+    /**
+     * Getteri oikealle lapselle.
+     *
+     * @return Oikean lapsen
+     */
     public Solmu getOikea() {
         return oikea;
     }
 
+    /**
+     * Getteri solmun avaimen arvolle.
+     *
+     * @return avaimen arvon
+     */
     public int getAvain() {
         return avain;
     }
 
+    /**
+     * Setteri solmun avaimen arvolle
+     *
+     * @param avain Solmun avaimen arvoksi asetettava luku
+     */
     public void setAvain(int avain) {
         this.avain = avain;
     }
 
+    /**
+     * Getteri solmun vanhemmalle.
+     *
+     * @return Solmun vanhemman
+     */
     public Solmu getParent() {
         return parent;
     }
 
+    /**
+     * Setteri solmun vanhemmalle
+     *
+     * @param parent Solmun vanhempi
+     */
     public void setParent(Solmu parent) {
         this.parent = parent;
     }
 
+    /**
+     * Getteri solmun korkeudelle.
+     *
+     * @return Solmun korkeuden
+     */
     public int getKorkeus() {
         return korkeus;
     }
 
-    public void setKorkeus(int korkeus) {
+    /**
+     * Setteri solmun korkeudelle
+     *
+     * @param korkeus Solmun korkeus
+     */
+    public void setKorkeus(int korkeus, Solmu solmu) {
         this.korkeus = korkeus;
+//        if (korkeus == 0) {
+//            juuri = solmu;
+//        }
     }
 
-    public String toString() {
-        String l, r;
-
-        if (vasen == null) {
-            l = "null";
-        } else {
-            l = vasen.toString();
-        }
-
-        if (oikea == null) {
-            r = "null";
-        } else {
-            r = oikea.toString();
-        }
-
-        return "Solmu[" + avain + ", " + l + ", " + r + "]";
-    }
+//    public Solmu getJuuri() {
+//        return juuri;
+//    }
+//    public String toString() {
+//        String l, r;
+//
+//        if (vasen == null) {
+//            l = "null";
+//        } else {
+//            l = vasen.toString();
+//        }
+//
+//        if (oikea == null) {
+//            r = "null";
+//        } else {
+//            r = oikea.toString();
+//        }
+//
+//        return "Solmu[" + avain + ", " + l + ", " + r + "]";
+//    }
 }

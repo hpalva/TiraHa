@@ -3,5 +3,5 @@ package tiraha;
 /**
  * Luokka luo triepuun.
  */
-public class Triepuu {
+public class Triepuu extends Puu {
 }

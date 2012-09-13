@@ -3,7 +3,7 @@ package tiraha;
 /**
  * Luokka luo AVL-puun.
  */
-public class AVLpuu {
+public class AVLpuu extends Puu {
 
     /**
      * Solmu-tyyppinen muuttuja, joka toimii puun juurisolmuna.
@@ -91,46 +91,6 @@ public class AVLpuu {
      * Metodi lisää parametrina annettavaan puuhun solmun, jolla on parametrina
      * annettava arvo avaimena. Jos puu on tyhjä, tästä solmusta tehdään puun
      * juuri. Jos taas puussa on jo solmuja, viedään uusi solmu puuhun oikealle
-     * paikalleen.
-     *
-     * @param puu Puu, johon solmu lisätään
-     * @param avain Solmun avaimena toimiva arvo
-     */
-    public Solmu insert(AVLpuu puu, int avain) {
-        Solmu uusisolmu = new Solmu(avain);
-
-        uusisolmu.setAvain(avain);
-
-        uusisolmu.setVasen(null);
-        uusisolmu.setOikea(null);
-        uusisolmu.setParent(null);
-
-        if (puu.juuri == null) {
-            puu.juuri = uusisolmu;
-        } else {
-            apuSolmu1 = puu.juuri;
-            while (apuSolmu1 != null) {
-                apuSolmu2 = apuSolmu1;
-                if (uusisolmu.getAvain() < apuSolmu1.getAvain()) {
-                    apuSolmu1 = apuSolmu1.getVasen();
-                } else {
-                    apuSolmu1 = apuSolmu1.getOikea();
-                }
-                uusisolmu.setParent(apuSolmu2);
-                if (uusisolmu.getAvain() < apuSolmu2.getAvain()) {
-                    apuSolmu2.setVasen(uusisolmu);
-                } else {
-                    apuSolmu2.setOikea(uusisolmu);
-                }
-            }
-        }
-        return uusisolmu;
-    }
-
-    /**
-     * Metodi lisää parametrina annettavaan puuhun solmun, jolla on parametrina
-     * annettava arvo avaimena. Jos puu on tyhjä, tästä solmusta tehdään puun
-     * juuri. Jos taas puussa on jo solmuja, viedään uusi solmu puuhun oikealle
      * paikalleen ja jos tästä seuraa, että puusta tulee epätasapainoinen,
      * metodi toteuttaa tarvittavat toiminpiteet.
      *
@@ -156,7 +116,7 @@ public class AVLpuu {
                     vanhempi.setOikea(alipuu);
                 }
                 if (vanhempi != null) {
-                    vanhempi.setKorkeus(Math.max(vanhempi.getVasen().getKorkeus(), vanhempi.getOikea().getKorkeus()) + 1);
+                    vanhempi.setKorkeus(Math.max(vanhempi.getVasen().getKorkeus(), vanhempi.getOikea().getKorkeus()) + 1, vanhempi);
                 }
 
             } else if (apuSolmu1.getOikea().getKorkeus() == apuSolmu1.getVasen().getKorkeus() + 2) {
@@ -174,22 +134,23 @@ public class AVLpuu {
                     vanhempi.setOikea(alipuu);
                 }
                 if (vanhempi != null) {
-                    vanhempi.setKorkeus(Math.max(vanhempi.getVasen().getKorkeus(), vanhempi.getOikea().getKorkeus()) + 1);
+                    vanhempi.setKorkeus(Math.max(vanhempi.getVasen().getKorkeus(), vanhempi.getOikea().getKorkeus()) + 1, vanhempi);
                 }
 
             }
-            apuSolmu1.setKorkeus(Math.max(apuSolmu1.getVasen().getKorkeus(), apuSolmu1.getOikea().getKorkeus()) + 1);
+            apuSolmu1.setKorkeus(Math.max(apuSolmu1.getVasen().getKorkeus(), apuSolmu1.getOikea().getKorkeus()) + 1, vanhempi);
             apuSolmu1 = apuSolmu1.getParent();
         }
     }
 
     /**
      * Metodi toimii apumetodina korkeuksien asettamiselle.
+     *
      * @param k1 solmu, jolle korkeus asetetaan
      * @param k2 solmu, jolle korkeus asetetaan
      */
     public void apumetodiKorkeuksille(Solmu k1, Solmu k2) {
-        k1.setKorkeus(Math.max(k1.getVasen().getKorkeus(), k1.getOikea().getKorkeus()) + 1);
-        k2.setKorkeus(Math.max(k2.getVasen().getKorkeus(), k2.getOikea().getKorkeus()) + 1);
+        k1.setKorkeus(Math.max(k1.getVasen().getKorkeus(), k1.getOikea().getKorkeus()) + 1, k1);
+        k2.setKorkeus(Math.max(k2.getVasen().getKorkeus(), k2.getOikea().getKorkeus()) + 1, k2);
     }
 }

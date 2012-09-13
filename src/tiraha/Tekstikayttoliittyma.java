@@ -2,16 +2,14 @@ package tiraha;
 
 import java.util.Scanner;
 
-/*
- *  
- */
 /**
  * Luokka mahdollistaa Stringien ja lukujen kysymisen ja ilmoitusten lausumisen.
- *
- * @author Henriikka
  */
 public class Tekstikayttoliittyma implements Kayttoliittyma {
 
+    /**
+     * Scanneri syötteen lukemiselle.
+     */
     private static Scanner lukija = new Scanner(System.in);
 
     /**

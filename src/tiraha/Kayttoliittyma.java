@@ -1,13 +1,7 @@
 package tiraha;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
- * @author Henriikka
+ * Rajapinta Tekstikäyttöliittymä-luokalle.
  */
 public interface Kayttoliittyma {
 

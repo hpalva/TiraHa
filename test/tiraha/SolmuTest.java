@@ -28,7 +28,7 @@ public class SolmuTest {
 
     @Test
     public void korkeudenSetteriToimii() {
-        solmu.setKorkeus(2);
+        solmu.setKorkeus(2,solmu);
         assertEquals(2, solmu.getKorkeus(), 0.001);
     }
 
