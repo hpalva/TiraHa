@@ -97,13 +97,33 @@ public class AVLpuu extends Puu {
      * @param puu Puu, johon solmu lisätään
      * @param avain Solmun avaimena toimiva arvo
      */
-    public void lisaa(AVLpuu puu, int avain) {
+    public Solmu lisaa(AVLpuu puu, int avain) {
         Solmu uusisolmu = insert(puu, avain);
+        if(uusisolmu.getParent()==null){
+            return uusisolmu;
+        }
         apuSolmu1 = uusisolmu.getParent();
+        int temp1 = -1;
+        int temp2 = -1;
+        int temp3 = -1;
+        int temp4 = -1;
         while (apuSolmu1 != null) {
-            if (apuSolmu1.getVasen().getKorkeus() == apuSolmu1.getOikea().getKorkeus() + 2) {
-                vanhempi = apuSolmu1.getParent();
-                if (apuSolmu1.getVasen().getVasen().getKorkeus() > apuSolmu1.getVasen().getOikea().getKorkeus()) {
+            if (apuSolmu1.getVasen() != null) {
+                temp1 = apuSolmu1.getVasen().getKorkeus();
+            }
+            if (apuSolmu1.getOikea() != null) {
+                temp2 = apuSolmu1.getOikea().getKorkeus();
+            }
+            if (temp1 == temp2 + 2) {
+                vanhempi = apuSolmu1.getParent();  
+                         
+                if (apuSolmu1.getVasen() != null && apuSolmu1.getVasen().getVasen() != null) {
+                    temp3 = apuSolmu1.getVasen().getVasen().getKorkeus();
+                }
+                if (apuSolmu1.getVasen() != null && apuSolmu1.getVasen().getOikea() != null) {
+                    temp4 = apuSolmu1.getVasen().getOikea().getKorkeus();
+                }
+                if (temp3 > temp4) {
                     alipuu = pyoritaOikealle(apuSolmu1);
                 } else {
                     alipuu = pyoritaVasemmalleSittenOikealle(apuSolmu1);
@@ -112,16 +132,30 @@ public class AVLpuu extends Puu {
                     puu.juuri = alipuu;
                 } else if (vanhempi.getVasen() == apuSolmu1) {
                     vanhempi.setVasen(alipuu);
-                } else {
+                }
+                else {
                     vanhempi.setOikea(alipuu);
                 }
-                if (vanhempi != null) {
-                    vanhempi.setKorkeus(Math.max(vanhempi.getVasen().getKorkeus(), vanhempi.getOikea().getKorkeus()) + 1, vanhempi);
+                apumetodiVanhemmanKorkeudelle(vanhempi);
+                return uusisolmu;
+            }
+            temp1 = temp2 = temp3 = temp4 = -1;
+            if (apuSolmu1.getOikea() != null) {
+                temp1 = apuSolmu1.getOikea().getKorkeus();
+            }
+            if (apuSolmu1.getVasen() != null) {
+                temp2 = apuSolmu1.getVasen().getKorkeus();
+            }
+            if (temp1 == temp2 + 2) {
+                vanhempi = apuSolmu1.getParent();  
+                
+                if (apuSolmu1.getOikea() != null && apuSolmu1.getOikea().getOikea() != null) {
+                    temp3 = apuSolmu1.getOikea().getOikea().getKorkeus();
                 }
-
-            } else if (apuSolmu1.getOikea().getKorkeus() == apuSolmu1.getVasen().getKorkeus() + 2) {
-                vanhempi = apuSolmu1.getParent();
-                if (apuSolmu1.getOikea().getOikea().getKorkeus() > apuSolmu1.getOikea().getVasen().getKorkeus()) {
+                if (apuSolmu1.getOikea() != null && apuSolmu1.getOikea().getVasen() != null) {
+                    temp4 = apuSolmu1.getOikea().getVasen().getKorkeus();
+                }
+                if (temp3 > temp4) {
                     alipuu = pyoritaVasemmalle(apuSolmu1);
                 } else {
                     alipuu = pyoritaOikealleSittenVasemmalle(apuSolmu1);
@@ -130,17 +164,23 @@ public class AVLpuu extends Puu {
                     puu.juuri = alipuu;
                 } else if (vanhempi.getVasen() == apuSolmu1) {
                     vanhempi.setVasen(alipuu);
-                } else {
+                }else {
                     vanhempi.setOikea(alipuu);
                 }
-                if (vanhempi != null) {
-                    vanhempi.setKorkeus(Math.max(vanhempi.getVasen().getKorkeus(), vanhempi.getOikea().getKorkeus()) + 1, vanhempi);
-                }
-
+                apumetodiVanhemmanKorkeudelle(vanhempi);
+                return uusisolmu;
             }
-            apuSolmu1.setKorkeus(Math.max(apuSolmu1.getVasen().getKorkeus(), apuSolmu1.getOikea().getKorkeus()) + 1, vanhempi);
+            temp3 = temp4 = -1;
+            if (apuSolmu1.getVasen() != null) {
+                temp3 = apuSolmu1.getVasen().getKorkeus();
+            }
+            if (apuSolmu1.getOikea() != null) {
+                temp4 = apuSolmu1.getOikea().getKorkeus();
+            }
+            apuSolmu1.setKorkeus(Math.max(temp3, temp4) + 1);
             apuSolmu1 = apuSolmu1.getParent();
         }
+        return uusisolmu;
     }
 
     /**
@@ -149,8 +189,29 @@ public class AVLpuu extends Puu {
      * @param k1 solmu, jolle korkeus asetetaan
      * @param k2 solmu, jolle korkeus asetetaan
      */
-    public void apumetodiKorkeuksille(Solmu k1, Solmu k2) {
-        k1.setKorkeus(Math.max(k1.getVasen().getKorkeus(), k1.getOikea().getKorkeus()) + 1, k1);
-        k2.setKorkeus(Math.max(k2.getVasen().getKorkeus(), k2.getOikea().getKorkeus()) + 1, k2);
+    private void apumetodiKorkeuksille(Solmu k1, Solmu k2) {
+        int temp1=-1;
+        int temp2=-1;
+        if(k1.getVasen()!=null) temp1=k1.getVasen().getKorkeus();
+        if(k1.getOikea()!=null) temp2=k1.getOikea().getKorkeus();
+        k1.setKorkeus(Math.max(temp1, temp2) + 1);
+        temp1=temp2=-1;
+        if(k2.getVasen()!=null) temp1=k2.getVasen().getKorkeus();
+        if(k2.getOikea()!=null) temp2=k2.getOikea().getKorkeus();
+        k2.setKorkeus(Math.max(temp1, temp2) + 1);
+    }
+
+    private void apumetodiVanhemmanKorkeudelle(Solmu vanhempi) {
+        int temp1 = -1;
+        int temp2 = -1;
+        if (vanhempi != null) {
+            if (vanhempi.getVasen() != null) {
+                temp1 = vanhempi.getVasen().getKorkeus();
+            }
+            if (vanhempi.getOikea() != null) {
+                temp2 = vanhempi.getOikea().getKorkeus();
+            }
+            vanhempi.setKorkeus(Math.max(temp1, temp2) + 1);
+        }
     }
 }

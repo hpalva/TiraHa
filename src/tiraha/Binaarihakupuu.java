@@ -35,7 +35,7 @@ public class Binaarihakupuu extends Puu {
 
         if (puu.juuri == null) {
             puu.juuri = uusisolmu;
-            juuri.setKorkeus(0, uusisolmu);
+            juuri.setKorkeus(0);
         } else {
             apuSolmu1 = puu.juuri;
             while (apuSolmu1 != null) {
@@ -48,10 +48,10 @@ public class Binaarihakupuu extends Puu {
                 uusisolmu.setParent(apuSolmu2);
                 if (uusisolmu.getAvain() < apuSolmu2.getAvain()) {
                     apuSolmu2.setVasen(uusisolmu);
-                    uusisolmu.setKorkeus(uusisolmu.getParent().getKorkeus()+1, uusisolmu);
+                    uusisolmu.setKorkeus(uusisolmu.getParent().getKorkeus()+1);
                 } else {
                     apuSolmu2.setOikea(uusisolmu);
-                    uusisolmu.setKorkeus(uusisolmu.getParent().getKorkeus()+1, uusisolmu);
+                    uusisolmu.setKorkeus(uusisolmu.getParent().getKorkeus()+1);
                 }
             }
         }

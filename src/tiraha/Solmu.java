@@ -26,10 +26,9 @@ public class Solmu {
      */
     private Solmu parent;
     /**
-     * Solmu-tyyppinen muuttuja, jota käytetään puun juurena.
+     * Solmu-tyyppinen muuttuja, jota käytetään solmuna
      */
-    private Solmu juuri;
-
+    private Solmu solmu;
     /**
      * Konstruktori määrittelee solmun.
      *
@@ -142,11 +141,8 @@ public class Solmu {
      *
      * @param korkeus Solmun korkeus
      */
-    public void setKorkeus(int korkeus, Solmu solmu) {
+    public void setKorkeus(int korkeus) {
         this.korkeus = korkeus;
-//        if (korkeus == 0) {
-//            juuri = solmu;
-//        }
     }
 
 //    public Solmu getJuuri() {
