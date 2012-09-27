@@ -53,6 +53,6 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
      */
     @Override
     public void ilmoita(String ilmoitus) {
-        System.out.println(ilmoitus);
+        System.out.print(ilmoitus);
     }
 }

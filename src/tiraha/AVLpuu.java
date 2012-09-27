@@ -25,13 +25,15 @@ public class AVLpuu extends Puu {
      * @return pyöräytettävän solmun oikea lapsi
      */
     public Solmu pyoritaVasemmalle(Solmu k1) {
+        //k1=2;
+        //k2=4;
         Solmu k2 = k1.getOikea();
         k2.setParent(k1.getParent());
         k1.getParent().setOikea(k2);
         k1.setParent(k2);
         k1.setOikea(k2.getVasen());
         k2.setVasen(k1);
-        if (k1.getOikea() == null) {
+        if (k1.getOikea() != null) {
             k1.getOikea().setParent(k1);
         }
         apumetodiKorkeuksille(k1, k2);
@@ -83,6 +85,8 @@ public class AVLpuu extends Puu {
      * @return kutsuu pyoritaOikealle()-metodia.
      */
     public Solmu pyoritaVasemmalleSittenOikealle(Solmu k1) {
+        //k1=5
+        //k2=2;
         Solmu k2 = k1.getVasen();
         k1.setVasen(pyoritaVasemmalle(k2));
         return pyoritaOikealle(k1);
@@ -97,6 +101,7 @@ public class AVLpuu extends Puu {
      *
      * @param puu Puu, johon solmu lisätään
      * @param avain Solmun avaimena toimiva arvo
+     * @return lisätty solmu
      */
     public Solmu lisaa(AVLpuu puu, int avain) {
         Solmu uusisolmu = insert(puu, avain);
@@ -133,10 +138,8 @@ public class AVLpuu extends Puu {
                 }
                 if (vanhempi == null) {
                     puu.juuri = alipuu;
-                } else if (vanhempi.getVasen() == apuSolmu1) {
+                } else if (vanhempi.getVasen() == apuSolmu1.getParent()) {
                     vanhempi.setVasen(alipuu);
-                    System.out.println(alipuu.getAvain());
-                    System.out.println("kökö" + vanhempi.getVasen().getAvain());
                 } else {
                     vanhempi.setOikea(alipuu);
                 }

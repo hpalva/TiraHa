@@ -30,6 +30,20 @@ public class Solmu {
      */
     private Solmu solmu;
     /**
+     * String-tyyppinen muuttuja, joka määrää solmun värin Punamustapuussa
+     */
+    private String vari;
+    /**
+     * String-tyyppinen muuttuja, joka määrää solmun kirjaimen Triepuussa
+     */
+    private String sanaAvain;
+    /**
+     * Boolean-tyyppinen muuttuja, joka kertoo onko triepuun solmussa valmis
+     * sana
+     */
+    private boolean markkeri;
+
+    /**
      * Konstruktori määrittelee solmun.
      *
      * @param avain Avaimeksi asetettava arvo
@@ -41,6 +55,15 @@ public class Solmu {
         this.vasen = vasen;
         this.oikea = oikea;
         korkeus = 0;
+    }
+
+    /**
+     * Konstruktori määrittelee triepuun solmun.
+     *
+     * @param sanaAvain Avaimeksi asetettava kirjain
+     */
+    public Solmu(String sanaAvain) {
+        this.sanaAvain = sanaAvain;
     }
 
     /**
@@ -145,6 +168,42 @@ public class Solmu {
         this.korkeus = korkeus;
     }
 
+    /**
+     * Getteri solmun värille.
+     *
+     * @return Solmun värin
+     */
+    public String getVari() {
+        return vari;
+    }
+
+    /**
+     * Setteri solmun värille
+     *
+     * @param vari Solmun vari
+     */
+    public void setVari(String vari) {
+        this.vari = vari;
+    }
+
+    /**
+     * Setteri triepuun solmun merkitsijälle, joka ilmaisee onko sana valmis vai
+     * ei.
+     *
+     * @param markkeri Solmun merkitsijä
+     */
+    public void setMarkkeri(boolean markkeri) {
+        this.markkeri = markkeri;
+    }
+
+    /**
+     * Getteri triepuun solmun merkitsijälle.
+     *
+     * @return Solmun värin
+     */
+    public boolean getMarkkeri() {
+        return markkeri;
+    }
 //    public Solmu getJuuri() {
 //        return juuri;
 //    }

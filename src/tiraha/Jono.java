@@ -5,20 +5,28 @@
 package tiraha;
 
 /**
- *Luokka luo jonon.
+ * Luokka luo jonon.
  */
 public class Jono {
-    
+
     /**
-     * Integer-tyyppinen taulukko, johon jonon arvot tallennetaan.
+     * Solmu-tyyppinen taulukko, johon puun solmut tallennetaan.
      */
-    private int[] taulukko;
+    private Solmu[] taulukko;
     /**
-     * Integer-tyyppinen muuttuja, joka on jonon ensimmäinen arvo
+     * Solmu-tyyppinen muuttuja, joka on jonon ensimmäinen solmu
+     */
+    private Solmu paaSolmu;
+    /**
+     * Integer-tyyppinen muuttuja, joka on jonon pään indeksi.
      */
     private int paa;
     /**
-     * Integer-tyyppinen muuttuja, joka on jonon viimeinen arvo
+     * Solmu-tyyppinen muuttuja, joka on jonon viimeinen solmu
+     */
+    private Solmu hantaSolmu;
+    /**
+     * Integer-tyyppinen muuttuja, joka on jonon hännän indeksi
      */
     private int hanta;
     /**
@@ -28,35 +36,53 @@ public class Jono {
 
     /**
      * Konstruktori määrittelee jonon
+     *
      * @param size jonon pituus
      */
     public Jono(int size) {
+        paaSolmu = null;
         paa = 0;
+        hantaSolmu = null;
         hanta = 0;
         this.n = size;
-        taulukko = new int[n];
+        taulukko = new Solmu[n];
     }
-/**
- * Metodi lisää parametrina annetun luvun jonon viimeisimmäksi arvoksi
- * @param x Jonoon lisättävä luku
- */
-    public void jonoon(int x) {
+
+    /**
+     * Metodi lisää parametrina annetun luvun jonon viimeisimmäksi arvoksi
+     *
+     * @param x Jonoon lisättävä luku
+     */
+    public void jonoon(Solmu x) {
         taulukko[hanta] = x;
         hanta++;
+        hantaSolmu = x;
         if (hanta == n) {
             hanta = 0;
         }
     }
-/**
- * Metodi poistaa jonosta sen ensimmäisen jäsenen
- * @return Jonon ensimmäisen jäsenen 
- */
-    public int jonosta() {
-        int pois = taulukko[paa];
+
+    /**
+     * Metodi poistaa jonosta sen ensimmäisen jäsenen
+     *
+     * @return Jonon ensimmäisen jäsenen
+     */
+    public Solmu jonosta() {
+        Solmu pois = taulukko[paa];
         paa++;
+        paaSolmu = taulukko[paa];
         if (paa == n) {
             paa = 0;
         }
         return pois;
+    }
+
+    /**
+     * Metodi palauttaa tiedon onko jono tyhja
+     *
+     * @return Jonon ensimmaisen ja viimeisen jasenen
+     */
+    boolean empty() {
+        return paa == hanta;
     }
 }
