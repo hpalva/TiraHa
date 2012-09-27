@@ -21,10 +21,10 @@ public class TiraHa {
         bpuu.insert(bpuu, 4);
 
         teka.ilmoita("Binääripuu, esijärjestys: ");
-        kulut.preorder(bpuu, bpuu.getJuuri());
+        kulut.preorder(bpuu.getJuuri());
 
         teka.ilmoita("\nBinääripuu, sisäjärjestys: ");
-        kulut.inorder(bpuu, bpuu.getJuuri());
+        kulut.inorder(bpuu.getJuuri());
 
         teka.ilmoita("\nBinääripuu, leveyssuuntainen järjestys: ");
         kulut.leverorder(bpuu, bpuu.getJuuri());
@@ -37,15 +37,15 @@ public class TiraHa {
         apuu.lisaa(apuu, 1);
         
         teka.ilmoita("\nAVL-puu, esijärjestys: ");
-        kulut.preorder(apuu, apuu.getJuuri());
+        kulut.preorder(apuu.getJuuri());
         
         teka.ilmoita("\nAVL-puu, sisäjärjestys: ");
-        kulut.inorder(apuu, apuu.getJuuri());
+        kulut.inorder(apuu.getJuuri());
         
         teka.ilmoita("\nAVL-puu, leveyssuuntainenjärjestys: ");
         kulut.leverorder(apuu, apuu.getJuuri());
 
-        AVLpuu pmpuu = new AVLpuu();
+        Punamustapuu pmpuu = new Punamustapuu();
         pmpuu.lisaa(pmpuu, 6);
         pmpuu.lisaa(pmpuu, 5);
         pmpuu.lisaa(pmpuu, 11);
@@ -53,12 +53,12 @@ public class TiraHa {
         pmpuu.lisaa(pmpuu, 4);
         
         teka.ilmoita("\nPunamustapuu, esijärjestys: ");
-        kulut.preorder(pmpuu, pmpuu.getJuuri());
+        kulut.preorderPM(pmpuu.getJuuri());
         
-//        teka.ilmoita("\nPunamustapuu, sisäjärjestys: ");
-//        kulut.inorder(pmpuu, pmpuu.getJuuri());
-//        
-//        teka.ilmoita("\nPunamustapuu, leveyssuuntainen järjestys: ");
-//        kulut.leverorder(pmpuu, pmpuu.getJuuri());
+        teka.ilmoita("\nPunamustapuu, sisäjärjestys: ");
+        kulut.inorderPM(pmpuu.getJuuri());
+        
+        teka.ilmoita("\nPunamustapuu, leveyssuuntainen järjestys: ");
+        kulut.leverorderPM(pmpuu, pmpuu.getJuuri());
     }
 }

@@ -19,63 +19,63 @@ public class Lapikulut {
      * Metodi suorittaa parametrina annettulle puulle (AVL- ja binäärihakupuut)
      * esiläpikäynnin
      *
-     * @param puu läpikäytävä puu
      * @param solmu solmu, josta läpikäynti aloitetaan
      */
-    public void preorder(Puu puu, Solmu solmu) {
-//        kliittyma.ilmoita(" " + solmu.getAvain());
+    public void preorder(Solmu solmu) {
+        kliittyma.ilmoita(" " + solmu.getAvain());
         if (solmu.getVasen() != null) {
-            System.out.println(" solmusta " + solmu.getAvain() + " mentiin vasemmalle : " + solmu.getOikea().getAvain());
-            preorder(puu, solmu.getVasen());
+            preorder(solmu.getVasen());
         }
         if (solmu.getOikea() != null) {
-            System.out.println("solmusta " + solmu.getAvain() + " mentiin oikealle : " + solmu.getOikea().getAvain());
-            preorder(puu, solmu.getOikea());
+            preorder(solmu.getOikea());
         }
     }
 
     /**
      * Metodi suorittaa parametrina annettulle punamustapuulle esiläpikäynnin
      *
-     * @param puu läpikäytävä puu
      * @param solmu solmu, josta läpikäynti aloitetaan
      */
-    public void preorderPM(Puu puu, Solmu solmu) {
-        if (solmu != null) {
-            kliittyma.ilmoita(" " + solmu.getAvain() + ":" + solmu.getVari());
-            preorderPM(puu, solmu.getVasen());
-            preorderPM(puu, solmu.getOikea());
+    public void preorderPM(Solmu solmu) {
+        kliittyma.ilmoita(" " + solmu.getAvain() + ":" + solmu.getVari());
+        if (solmu.getVasen() != null) {
+            preorderPM(solmu.getVasen());
         }
+        if (solmu.getOikea() != null) {
+            preorderPM(solmu.getOikea());
+        }
+
+
     }
 
     /**
      * Metodi suorittaa parametrina annettulle puulle (AVL- ja binäärihakupuut)
      * sisäläpikäynnin
      *
-     * @param puu läpikäytävä puu
      * @param solmu solmu, josta läpikäynti aloitetaan
      */
-    public void inorder(Puu puu, Solmu solmu) {
+    public void inorder(Solmu solmu) {
         if (solmu.getVasen() != null) {
-            inorder(puu, solmu.getVasen());
+            inorder(solmu.getVasen());
         }
         kliittyma.ilmoita(" " + solmu.getAvain());
         if (solmu.getOikea() != null) {
-            inorder(puu, solmu.getOikea());
+            inorder(solmu.getOikea());
         }
     }
 
     /**
      * Metodi suorittaa parametrina annettulle punamustapuulle sisäläpikäynnin
      *
-     * @param puu läpikäytävä puu
      * @param solmu solmu, josta läpikäynti aloitetaan
      */
-    public void inorderPM(Puu puu, Solmu solmu) {
-        if (solmu != null) {
-            inorderPM(puu, solmu.getVasen());
-            kliittyma.ilmoita(" " + solmu.getAvain() + ":" + solmu.getVari());
-            inorderPM(puu, solmu.getOikea());
+    public void inorderPM(Solmu solmu) {
+        if (solmu.getVasen() != null) {
+            inorderPM(solmu.getVasen());
+        }
+        kliittyma.ilmoita(" " + solmu.getAvain() + ":" + solmu.getVari());
+        if (solmu.getOikea() != null) {
+            inorderPM(solmu.getOikea());
         }
     }
 
