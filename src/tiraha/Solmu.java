@@ -34,14 +34,14 @@ public class Solmu {
      */
     private String vari;
     /**
-     * String-tyyppinen muuttuja, joka määrää solmun kirjaimen Triepuussa
-     */
-    private String sanaAvain;
-    /**
      * Boolean-tyyppinen muuttuja, joka kertoo onko triepuun solmussa valmis
      * sana
      */
     private boolean markkeri;
+    /**
+     * Solmu-tyyppinen taulukkomuuttuja, joka sisältää solmun lapset trie-puussa
+     */
+    private Solmu[] lapset;
 
     /**
      * Konstruktori määrittelee solmun.
@@ -55,15 +55,15 @@ public class Solmu {
         this.vasen = vasen;
         this.oikea = oikea;
         korkeus = 0;
+        lapset = new Solmu[10];
     }
 
     /**
-     * Konstruktori määrittelee triepuun solmun.
-     *
-     * @param sanaAvain Avaimeksi asetettava kirjain
+     * Konstruktori määrittelee triepuun juurisolmun.
      */
-    public Solmu(String sanaAvain) {
-        this.sanaAvain = sanaAvain;
+    public Solmu() {
+        this.avain = -1;
+        lapset = new Solmu[10];
     }
 
     /**
@@ -73,6 +73,7 @@ public class Solmu {
      */
     public Solmu(int avain) {
         this.avain = avain;
+        lapset = new Solmu[10];
         // vasen ja oikea ovat null
     }
 
@@ -204,9 +205,54 @@ public class Solmu {
     public boolean getMarkkeri() {
         return markkeri;
     }
-//    public Solmu getJuuri() {
-//        return juuri;
-//    }
+
+    /**
+     * Setteri, joka lisää taulukkoon solmun lapsen ja tallentaa lapsen vanhemmaksi solmun
+     *
+     * @param parent vanhempi
+     * @param lapsi Solmun lapsi
+     */
+    public void setLapsi(Solmu parent, Solmu lapsi) {
+        int i = 0;
+        lapsi.setParent(parent);
+        while (i < 10) {
+            if (lapset[i] == null) {
+                this.lapset[i] = lapsi;
+                break;
+            }
+            i++;
+        }
+    }
+
+    /**
+     * Getteri taulukolle, joka sisältää solmun lapset
+     *
+     * @return lapsitaulukko
+     */
+    public Solmu[] getLapset() {
+        return lapset;
+    }
+
+    /**
+     * Metodi käy solmun lapset läpi ja tarkastaa, onko lapsista jollakin arvona
+     * metodille parametrina annettava merkki.
+     *
+     * @param solmu Solmu, jonka lapsia käydään läpi
+     * @param c Arvo, jota etsitään
+     * @return Se lapsi, jolta arvo löytyy tai null, jos ei löydy tällaista
+     * lasta
+     */
+    public Solmu subLapsi(Solmu solmu, char c) {
+        if (solmu.getLapset() != null) {
+            for (Solmu lapsi : solmu.getLapset()) {
+                String merkki = "" + c;
+                if (lapsi != null && lapsi.getAvain() == Integer.parseInt(merkki)) {
+                    return lapsi;
+                }
+            }
+        }
+        return null;
+    }
 //    public String toString() {
 //        String l, r;
 //

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tiraha;
 
 /**
@@ -12,75 +8,75 @@ public class Jono {
     /**
      * Solmu-tyyppinen taulukko, johon puun solmut tallennetaan.
      */
-    private Solmu[] taulukko;
+    public Solmu[] taulukko;
     /**
      * Solmu-tyyppinen muuttuja, joka on jonon ensimmäinen solmu
      */
-    private Solmu paaSolmu;
+    public Solmu paaSolmu;
     /**
      * Integer-tyyppinen muuttuja, joka on jonon pään indeksi.
      */
-    private int paa;
+    public int paa;
     /**
      * Solmu-tyyppinen muuttuja, joka on jonon viimeinen solmu
      */
-    private Solmu hantaSolmu;
+    public Solmu hantaSolmu;
     /**
      * Integer-tyyppinen muuttuja, joka on jonon hännän indeksi
      */
-    private int hanta;
+    public int hanta;
     /**
      * Integer-tyyppinen muuttuja, joka on jonon maksimipituus
      */
-    private int n;
+    public int koko;
 
     /**
      * Konstruktori määrittelee jonon
      *
-     * @param size jonon pituus
+     * @param koko jonon pituus
      */
-    public Jono(int size) {
+    public Jono(int koko) {
         paaSolmu = null;
         paa = 0;
         hantaSolmu = null;
         hanta = 0;
-        this.n = size;
-        taulukko = new Solmu[n];
+        this.koko = koko;
+        taulukko = new Solmu[koko];
     }
 
     /**
-     * Metodi lisää parametrina annetun luvun jonon viimeisimmäksi arvoksi
+     * Metodi lisää parametrina annetun luvun jonon viimeisimmäksi arvoksi.
      *
-     * @param x Jonoon lisättävä luku
+     * @param solmu jonoon lisättävä luku
      */
-    public void jonoon(Solmu x) {
-        taulukko[hanta] = x;
+    public void jonoon(Solmu solmu) {
+        taulukko[hanta] = solmu;
         hanta++;
-        hantaSolmu = x;
-        if (hanta == n) {
+        hantaSolmu = solmu;
+        if (hanta == koko) {
             hanta = 0;
         }
     }
 
     /**
-     * Metodi poistaa jonosta sen ensimmäisen jäsenen
+     * Metodi poistaa jonosta sen ensimmäisen jäsenen.
      *
-     * @return Jonon ensimmäisen jäsenen
+     * @return jonon ensimmäinen jäsen
      */
     public Solmu jonosta() {
         Solmu pois = taulukko[paa];
         paa++;
         paaSolmu = taulukko[paa];
-        if (paa == n) {
+        if (paa == koko) {
             paa = 0;
         }
         return pois;
     }
 
     /**
-     * Metodi palauttaa tiedon onko jono tyhja
+     * Metodi palauttaa tiedon siitä, onko jono tyhjä.
      *
-     * @return Jonon ensimmaisen ja viimeisen jasenen
+     * @return jonon ensimmainen ja viimeinen jäsen
      */
     boolean empty() {
         return paa == hanta;

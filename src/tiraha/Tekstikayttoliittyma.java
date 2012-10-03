@@ -14,10 +14,10 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
 
     /**
      * Metodi kysyy käyttäjältä standardisyöttövirrasta Stringiä ja palauttaa
-     * sen
+     * sen.
      *
-     * @param ilmoitus Käyttäjälle tulostettava ilmoitus ennen inputtia
-     * @return Käyttäjän syöttämä sisääntulo
+     * @param ilmoitus käyttäjälle tulostettava ilmoitus ennen inputtia
+     * @return käyttäjän syöttämä sisääntulo
      */
     @Override
     public String kysyString(String ilmoitus) {
@@ -26,12 +26,12 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
     }
 
     /**
-     * Metodi kysyy käyttäjältä syötettä ja tarkistaa onko se sopiva int
-     * tyyppiseksi, jos kyllä niin se palautetaan, jos ei niin kysytään
+     * Metodi kysyy käyttäjältä syötettä ja tarkistaa onko se sopiva integer-
+     * tyyppiseksi. Jos on, se palautetaan ja jos ei, niin kysytään
      * uudestaan virheilmoituksen kera.
      *
      * @param ilmoitus käyttäjälle tulostettava ilmoitus ennen inputtia
-     * @return Käyttäjän syöttämä kokonaisluku
+     * @return käyttäjän syöttämä kokonaisluku
      */
     @Override
     public int kysyInt(String ilmoitus) {
@@ -47,9 +47,9 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
     }
 
     /**
-     * Tulostaa käyttäjälle metodille syötetyn tekstin
+     * Tulostaa metodille syötetyn tekstin.
      *
-     * @param string Merkkijono joka tulostetaan käyttäjälle
+     * @param string merkkijono, joka tulostetaan käyttäjälle
      */
     @Override
     public void ilmoita(String ilmoitus) {

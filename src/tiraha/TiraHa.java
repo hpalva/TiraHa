@@ -15,10 +15,10 @@ public class TiraHa {
         Lapikulut kulut = new Lapikulut();
 
         Binaarihakupuu bpuu = new Binaarihakupuu();
-        bpuu.insert(bpuu, 5);
-        bpuu.insert(bpuu, 10);
-        bpuu.insert(bpuu, 2);
-        bpuu.insert(bpuu, 4);
+        bpuu.binaariLisays(bpuu, 5);
+        bpuu.binaariLisays(bpuu, 10);
+        bpuu.binaariLisays(bpuu, 2);
+        bpuu.binaariLisays(bpuu, 4);
 
         teka.ilmoita("Binääripuu, esijärjestys: ");
         kulut.preorder(bpuu.getJuuri());
@@ -35,13 +35,13 @@ public class TiraHa {
         apuu.lisaa(apuu, 9);
         apuu.lisaa(apuu, 2);
         apuu.lisaa(apuu, 1);
-        
+
         teka.ilmoita("\nAVL-puu, esijärjestys: ");
         kulut.preorder(apuu.getJuuri());
-        
+
         teka.ilmoita("\nAVL-puu, sisäjärjestys: ");
         kulut.inorder(apuu.getJuuri());
-        
+
         teka.ilmoita("\nAVL-puu, leveyssuuntainenjärjestys: ");
         kulut.leverorder(apuu, apuu.getJuuri());
 
@@ -51,14 +51,31 @@ public class TiraHa {
         pmpuu.lisaa(pmpuu, 11);
         pmpuu.lisaa(pmpuu, 2);
         pmpuu.lisaa(pmpuu, 4);
-        
+
         teka.ilmoita("\nPunamustapuu, esijärjestys: ");
         kulut.preorderPM(pmpuu.getJuuri());
-        
+
         teka.ilmoita("\nPunamustapuu, sisäjärjestys: ");
         kulut.inorderPM(pmpuu.getJuuri());
-        
+
         teka.ilmoita("\nPunamustapuu, leveyssuuntainen järjestys: ");
         kulut.leverorderPM(pmpuu, pmpuu.getJuuri());
+
+        Triepuu tpuu = new Triepuu();
+        tpuu.lisaa(tpuu, 1);
+        tpuu.lisaa(tpuu, 4);
+        tpuu.lisaa(tpuu, 112);
+        tpuu.lisaa(tpuu, 3);
+        tpuu.lisaa(tpuu, 33333);
+        tpuu.lisaa(tpuu, 33);
+        tpuu.lisaa(tpuu, 34);
+
+        teka.ilmoita("\nTriepuu, leveyssuuntainen järjestys: ");
+        kulut.levelorderTrie(tpuu, tpuu.getJuuri());
+
+        teka.ilmoita("\nTriepuu,  puussa on luvut: ");
+        kulut.puunLuvut(tpuu, tpuu.getJuuri());
+
+        teka.ilmoita("\nTriepuu, jokujärjestys: ");
     }
 }

@@ -3,38 +3,33 @@ package tiraha;
 /**
  * Luokka luo punamustapuun.
  */
-public class Punamustapuu extends Puu {
-
-    /**
-     * Solmu-tyyppinen muuttuja, joka toimii puun juurisolmuna.
-     */
-    private Solmu juuri;
+public class Punamustapuu extends Binaarihakupuu {
 
     /**
      * Metodi pyörittää parametrina annettua solmua vasemmalle, koska solmu on
      * aiheuttanut epätasapainon eli solmun vanhempi ja solmu itse ovat
      * punaiset.
      *
-     * @param solmu Solmu, jota tulee pyörittää
+     * @param solmu solmu, jota tulee pyörittää
      */
     public void pyoritaVasemmalle(Solmu solmu) {
-        Solmu y = solmu.getOikea();
-        solmu.setOikea(y.getVasen());
-        if (y.getVasen() != null) {
-            y.getVasen().setParent(solmu);
+        Solmu apu = solmu.getOikea();
+        solmu.setOikea(apu.getVasen());
+        if (apu.getVasen() != null) {
+            apu.getVasen().setParent(solmu);
         }
-        y.setParent(solmu.getParent());
+        apu.setParent(solmu.getParent());
         if (solmu.getParent() == null) {
-            juuri = y;
+            juuri = apu;
         } else {
             if (solmu == solmu.getParent().getVasen()) {
-                solmu.getParent().setVasen(y);
+                solmu.getParent().setVasen(apu);
             } else {
-                solmu.getParent().setOikea(y);
+                solmu.getParent().setOikea(apu);
             }
         }
-        y.setVasen(solmu);
-        solmu.setParent(y);
+        apu.setVasen(solmu);
+        solmu.setParent(apu);
     }
 
     /**
@@ -45,23 +40,23 @@ public class Punamustapuu extends Puu {
      * @param solmu Solmu, jota tulee pyörittää
      */
     public void pyoritaOikealle(Solmu solmu) {
-        Solmu y = solmu.getVasen();
-        solmu.setVasen(y.getOikea());
-        if (y.getOikea() != null) {
-            y.getOikea().setParent(solmu);
+        Solmu apu = solmu.getVasen();
+        solmu.setVasen(apu.getOikea());
+        if (apu.getOikea() != null) {
+            apu.getOikea().setParent(solmu);
         }
-        y.setParent(solmu.getParent());
+        apu.setParent(solmu.getParent());
         if (solmu.getParent() == null) {
-            juuri = y;
+            juuri = apu;
         } else {
             if (solmu == solmu.getParent().getOikea()) {
-                solmu.getParent().setOikea(y);
+                solmu.getParent().setOikea(apu);
             } else {
-                solmu.getParent().setVasen(y);
+                solmu.getParent().setVasen(apu);
             }
         }
-        y.setOikea(solmu);
-        solmu.setParent(y);
+        apu.setOikea(solmu);
+        solmu.setParent(apu);
     }
 
     /**
@@ -78,16 +73,16 @@ public class Punamustapuu extends Puu {
      * @return Lisätty solmu
      */
     public Solmu lisaa(Punamustapuu puu, int avain) {
-        Solmu uusi = puu.insert(puu, avain);
+        Solmu uusi = puu.binaariLisays(puu, avain);
         uusi.setVari("puna");
-        Solmu y;
+        Solmu apu;
 
         while (uusi.getParent() != null && uusi.getParent().getVari().equals("puna")) {
             if (uusi.getParent() == uusi.getParent().getParent().getVasen()) {
-                y = uusi.getParent().getParent().getOikea();
-                if (y != null && y.getVari().equals("puna")) {
+                apu = uusi.getParent().getParent().getOikea();
+                if (apu != null && apu.getVari().equals("puna")) {
                     uusi.getParent().setVari("musta");
-                    y.setVari("musta");
+                    apu.setVari("musta");
                     uusi.getParent().getParent().setVari("puna");
                     uusi = uusi.getParent().getParent();
                 } else {
@@ -101,10 +96,10 @@ public class Punamustapuu extends Puu {
                     pyoritaOikealle(uusi.getParent().getParent());
                 }
             } else {
-                y = uusi.getParent().getParent().getVasen();
-                if (y != null && y.getVari().equals("puna")) {
+                apu = uusi.getParent().getParent().getVasen();
+                if (apu != null && apu.getVari().equals("puna")) {
                     uusi.getParent().setVari("musta");
-                    y.setVari("musta");
+                    apu.setVari("musta");
                     uusi.getParent().getParent().setVari("puna");
                     uusi = uusi.getParent().getParent();
                 } else {
@@ -117,7 +112,6 @@ public class Punamustapuu extends Puu {
                     pyoritaVasemmalle(uusi.getParent().getParent());
                 }
             }
-
         }
         puu.getJuuri().setVari("musta");
         return uusi;

@@ -3,17 +3,11 @@ package tiraha;
 /**
  * Luokka luo AVL-puun.
  */
-public class AVLpuu extends Puu {
+public class AVLpuu extends Binaarihakupuu {
 
     /**
-     * Solmu-tyyppinen muuttuja, joka toimii puun juurisolmuna.
+     * Solmu-tyyppinen apumuuttuja.
      */
-    private Solmu juuri;
-    /**
-     * Solmu-tyyppiset apumuuttujat.
-     */
-    // private Solmu apuSolmu1;
-//    private Solmu vanhempi;
     private Solmu alipuu;
 
     /**
@@ -21,22 +15,20 @@ public class AVLpuu extends Puu {
      * ongelma on solmun oikeassa alipuussa, metodi pyöräyttää solmua
      * vasemmalle.
      *
-     * @param k1 pyöräytettävä solmu
+     * @param pyoritettava pyöräytettävä solmu
      * @return pyöräytettävän solmun oikea lapsi
      */
-    public Solmu pyoritaVasemmalle(Solmu k1) {
-        //k1=2;
-        //k2=4;
-        Solmu k2 = k1.getOikea();
-        k2.setParent(k1.getParent());
-        k1.setParent(k2);
-        k1.setOikea(k2.getVasen());
-        k2.setVasen(k1);
-        if (k1.getOikea() != null) {
-            k1.getOikea().setParent(k1);
+    public Solmu pyoritaVasemmalle(Solmu pyoritettava) {
+        Solmu apu = pyoritettava.getOikea();
+        apu.setParent(pyoritettava.getParent());
+        pyoritettava.setParent(apu);
+        pyoritettava.setOikea(apu.getVasen());
+        apu.setVasen(pyoritettava);
+        if (pyoritettava.getOikea() != null) {
+            pyoritettava.getOikea().setParent(pyoritettava);
         }
-        apumetodiKorkeuksille(k1, k2);
-        return k2;
+        apumetodiKorkeuksille(pyoritettava, apu);
+        return apu;
     }
 
     /**
@@ -44,22 +36,20 @@ public class AVLpuu extends Puu {
      * ongelma on solmun vasemmassa alipuussa, metodi pyöräyttää solmua
      * oikealle.
      *
-     * @param k1 pyöräytettävä solmu
+     * @param pyoritettava pyöräytettävä solmu
      * @return pyöräytettävän solmun vasen lapsi
      */
-    public Solmu pyoritaOikealle(Solmu k1) {
-        //k1=5
-        //k2=4
-        Solmu k2 = k1.getVasen();
-        k2.setParent(k1.getParent());
-        k1.setParent(k2);
-        k1.setVasen(k2.getOikea());
-        k2.setOikea(k1);
-        if (k1.getVasen() != null) {
-            k1.getVasen().setParent(k1);
+    public Solmu pyoritaOikealle(Solmu pyoritettava) {
+        Solmu apu = pyoritettava.getVasen();
+        apu.setParent(pyoritettava.getParent());
+        pyoritettava.setParent(apu);
+        pyoritettava.setVasen(apu.getOikea());
+        apu.setOikea(pyoritettava);
+        if (pyoritettava.getVasen() != null) {
+            pyoritettava.getVasen().setParent(pyoritettava);
         }
-        apumetodiKorkeuksille(k1, k2);
-        return k2;
+        apumetodiKorkeuksille(pyoritettava, apu);
+        return apu;
     }
 
     /**
@@ -67,13 +57,13 @@ public class AVLpuu extends Puu {
      * ongelma on solmun oikean alipuun vasemmassa alipuussa, metodi pyörittää
      * solmua ensin oikealle ja sitten vasemmalle.
      *
-     * @param k1 pyöritettävä solmu
-     * @return kutsuu pyoritaVasemmalle()-metodia.
+     * @param pyoritettava pyöritettävä solmu
+     * @return kutsuu pyoritaVasemmalle()-metodia
      */
-    public Solmu pyoritaOikealleSittenVasemmalle(Solmu k1) {
-        Solmu k2 = k1.getOikea();
-        k1.setOikea(pyoritaOikealle(k2));
-        return pyoritaVasemmalle(k1);
+    public Solmu pyoritaOikealleSittenVasemmalle(Solmu pyoritettava) {
+        Solmu apu = pyoritettava.getOikea();
+        pyoritettava.setOikea(pyoritaOikealle(apu));
+        return pyoritaVasemmalle(pyoritettava);
     }
 
     /**
@@ -81,15 +71,13 @@ public class AVLpuu extends Puu {
      * ongelma on solmun vasemman alipuun oikeassa alipuussa, metodi pyörittää
      * solmua ensin vasemmalle ja sitten oikealle.
      *
-     * @param k1 pyöritettävä solmu
-     * @return kutsuu pyoritaOikealle()-metodia.
+     * @param pyoritettava pyöritettävä solmu
+     * @return kutsuu pyoritaOikealle()-metodia
      */
-    public Solmu pyoritaVasemmalleSittenOikealle(Solmu k1) {
-        //k1=5
-        //k2=2;
-        Solmu k2 = k1.getVasen();
-        k1.setVasen(pyoritaVasemmalle(k2));
-        return pyoritaOikealle(k1);
+    public Solmu pyoritaVasemmalleSittenOikealle(Solmu pyoritettava) {
+        Solmu apu = pyoritettava.getVasen();
+        pyoritettava.setVasen(pyoritaVasemmalle(apu));
+        return pyoritaOikealle(pyoritettava);
     }
 
     /**
@@ -97,19 +85,19 @@ public class AVLpuu extends Puu {
      * annettava arvo avaimena. Jos puu on tyhjä, tästä solmusta tehdään puun
      * juuri. Jos taas puussa on jo solmuja, viedään uusi solmu puuhun oikealle
      * paikalleen ja jos tästä seuraa, että puusta tulee epätasapainoinen,
-     * metodi toteuttaa tarvittavat toiminpiteet.
+     * metodi toteuttaa tarvittavat toimenpiteet.
      *
-     * @param puu Puu, johon solmu lisätään
-     * @param avain Solmun avaimena toimiva arvo
+     * @param puu puu, johon solmu lisätään
+     * @param avain solmun avaimena toimiva arvo
      * @return lisätty solmu
      */
     public Solmu lisaa(AVLpuu puu, int avain) {
-        Solmu uusisolmu = insert(puu, avain);
-        if (uusisolmu.getParent() == null) {
-            return uusisolmu;
+        Solmu uusi = binaariLisays(puu, avain);
+        if (uusi.getParent() == null) {
+            return uusi;
         }
-        Solmu apuSolmu = uusisolmu.getParent();
-        Solmu ongelma = uusisolmu.getParent();
+        Solmu apuSolmu = uusi.getParent();
+        Solmu ongelma = uusi.getParent();
         int temp1;
         int temp2;
         int temp3;
@@ -148,7 +136,7 @@ public class AVLpuu extends Puu {
                     vanhempi.setOikea(alipuu);
                 }
                 apumetodiVanhemmanKorkeudelle(vanhempi);
-                return uusisolmu;
+                return uusi;
             }
             temp1 = -1;
             temp2 = -1;
@@ -181,7 +169,7 @@ public class AVLpuu extends Puu {
                     vanhempi.setOikea(alipuu);
                 }
                 apumetodiVanhemmanKorkeudelle(vanhempi);
-                return uusisolmu;
+                return uusi;
             }
             temp3 = temp4 = -1;
             if (apuSolmu.getVasen() != null) {
@@ -192,37 +180,41 @@ public class AVLpuu extends Puu {
             }
             apuSolmu.setKorkeus(Math.max(temp3, temp4) + 1);
             apuSolmu = apuSolmu.getParent();
-
         }
-        return uusisolmu;
+        return uusi;
     }
 
     /**
      * Metodi toimii apumetodina korkeuksien asettamiselle.
      *
-     * @param k1 solmu, jolle korkeus asetetaan
-     * @param k2 solmu, jolle korkeus asetetaan
+     * @param solmu1 solmu, jolle korkeus asetetaan
+     * @param solmu2 solmu, jolle korkeus asetetaan
      */
-    private void apumetodiKorkeuksille(Solmu k1, Solmu k2) {
+    private void apumetodiKorkeuksille(Solmu solmu1, Solmu solmu2) {
         int temp1 = -1;
         int temp2 = -1;
-        if (k1.getVasen() != null) {
-            temp1 = k1.getVasen().getKorkeus();
+        if (solmu1.getVasen() != null) {
+            temp1 = solmu1.getVasen().getKorkeus();
         }
-        if (k1.getOikea() != null) {
-            temp2 = k1.getOikea().getKorkeus();
+        if (solmu1.getOikea() != null) {
+            temp2 = solmu1.getOikea().getKorkeus();
         }
-        k1.setKorkeus(Math.max(temp1, temp2) + 1);
+        solmu1.setKorkeus(Math.max(temp1, temp2) + 1);
         temp1 = temp2 = -1;
-        if (k2.getVasen() != null) {
-            temp1 = k2.getVasen().getKorkeus();
+        if (solmu2.getVasen() != null) {
+            temp1 = solmu2.getVasen().getKorkeus();
         }
-        if (k2.getOikea() != null) {
-            temp2 = k2.getOikea().getKorkeus();
+        if (solmu2.getOikea() != null) {
+            temp2 = solmu2.getOikea().getKorkeus();
         }
-        k2.setKorkeus(Math.max(temp1, temp2) + 1);
+        solmu2.setKorkeus(Math.max(temp1, temp2) + 1);
     }
 
+    /**
+     * Metodi muuttaa parametrina annettavan solmun korkeuden.
+     *
+     * @param vanhempi solmu, jonka korkeus muutetaan
+     */
     private void apumetodiVanhemmanKorkeudelle(Solmu vanhempi) {
         int temp1 = -1;
         int temp2 = -1;
